@@ -44,3 +44,14 @@ Route::middleware('auth')->post(
     [NewsController::class, 'storeComment']
 )->name('news.comments.store');
 
+//_______________________________________________________________________________________________________________________
+// Faq
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/faq/create', [FaqController::class, 'create'])->name('faq.create');
+    Route::post('/admin/faq', [FaqController::class, 'store'])->name('faq.store');
+    Route::get('/admin/faq/{faq}/edit', [FaqController::class, 'edit'])->name('faq.edit');
+    Route::patch('/admin/faq/{faq}', [FaqController::class, 'update'])->name('faq.update');
+    Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
+});
