@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\News;
@@ -49,5 +50,12 @@ class DatabaseSeeder extends Seeder
         }
 
         ContactSubmission::factory(9)->create();
+
+        User::query()->create([
+            'name' => 'admin',
+            'email' => 'admin@ehb.be',
+            'password' => Hash::make('Password!321'),
+            'is_admin' => true,
+        ]);
     }
 }
