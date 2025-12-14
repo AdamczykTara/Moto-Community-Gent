@@ -55,3 +55,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::patch('/admin/faq/{faq}', [FaqController::class, 'update'])->name('faq.update');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
 });
+
+//_______________________________________________________________________________________________________________________
+// Contact
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/{contactSubmission}', [ContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact/{contactSubmission}/answer', [ContactController::class, 'answer'])->name('contact.answer');
+});
+
