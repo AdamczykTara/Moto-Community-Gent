@@ -2,59 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    public function __construct()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $this->middleware('auth')->except('show');
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function show(User $user): View
     {
-        $request->user()->fill($request->validated());
+        $user->load(['profile', 'rides']);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        return view('profiles.show', compact('user'));
+    }
+
+    public function edit(): View
+    {
+        $user = Auth::user();
+
+        $profile = Profile::query()->firstOrCreate(
+            ['user_id' => auth()->id(),]
+        );
+
+        return view('profiles.edit', compact('profile'));
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+
+        $profile = Profile::query()->firstOrCreate(
+            ['user_id' => auth()->id(),]
+        );
+
+        $validated = $request->validate([
+            'birthday'        => ['nullable', 'date'],
+            'bio'             => ['nullable', 'string'],
+            'profile_picture' => ['nullable', 'image', 'max:2048'],
+            'moto_picture'    => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        if ($request->hasFile('profile_picture')) {
+            if ($profile->profile_picture) {
+                Storage::disk('public')->delete($profile->profile_picture);
+            }
+
+            $validated['profile_picture'] =
+                $request->file('profile_picture')->store('profiles', 'public');
         }
 
-        $request->user()->save();
+        if ($request->hasFile('moto_picture')) {
+            if ($profile->moto_picture) {
+                Storage::disk('public')->delete($profile->moto_picture);
+            }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+            $validated['moto_picture'] =
+                $request->file('moto_picture')->store('motos', 'public');
+        }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $profile->update($validated);
 
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return redirect()
+            ->route('profiles.show', $user)
+            ->with('success', 'Profiel bijgewerkt');
     }
 }

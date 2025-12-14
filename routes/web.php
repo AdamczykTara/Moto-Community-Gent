@@ -67,3 +67,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/contact/{contactSubmission}/answer', [ContactController::class, 'answer'])->name('contact.answer');
 });
 
+//_______________________________________________________________________________________________________________________
+// Profile + rides
+Route::get('/profiles/{user}', [ProfileController::class, 'show'])
+    ->name('profiles.show');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profiles.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profiles.update');
+
+    Route::get('/rides/create', [RideController::class, 'create'])->name('rides.create');
+    Route::post('/rides', [RideController::class, 'store'])->name('rides.store');
+    Route::get('/rides/{ride}/edit', [RideController::class, 'edit'])->name('rides.edit');
+    Route::patch('/rides/{ride}', [RideController::class, 'update'])->name('rides.update');
+    Route::delete('/rides/{ride}', [RideController::class, 'destroy'])->name('rides.destroy');
+});
+

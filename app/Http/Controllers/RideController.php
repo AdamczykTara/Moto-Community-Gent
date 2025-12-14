@@ -2,63 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ride;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class RideController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(): View
     {
-        //
+        return view('rides.create');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'title'       => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'photo'       => ['nullable', 'image', 'max:2048'],
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $validated['photo'] =
+                $request->file('photo')->store('rides', 'public');
+        }
+
+        $validated['user_id'] = Auth::id();
+
+        Ride::query()->create($validated);
+
+        return redirect()
+            ->route('profiles.show', Auth::user())
+            ->with('success', 'Rit toegevoegd');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function edit(Ride $ride): View
     {
-        //
+        $this->authorizeRide($ride);
+
+        return view('rides.edit', compact('ride'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, Ride $ride): RedirectResponse
     {
-        //
+        $this->authorizeRide($ride);
+
+        $validated = $request->validate([
+            'title'       => ['required'],
+            'description' => ['nullable'],
+            'photo'       => ['nullable', 'image'],
+        ]);
+
+        if ($request->hasFile('photo')) {
+            if ($ride->photo) {
+                Storage::disk('public')->delete($ride->photo);
+            }
+
+            $validated['photo'] =
+                $request->file('photo')->store('rides', 'public');
+        }
+
+        $ride->update($validated);
+
+        return redirect()->route('profiles.show', Auth::user());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy(Ride $ride): RedirectResponse
     {
-        //
+        $this->authorizeRide($ride);
+
+        if ($ride->photo) {
+            Storage::disk('public')->delete($ride->photo);
+        }
+
+        $ride->delete();
+
+        return back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    private function authorizeRide(Ride $ride): void
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        abort_if($ride->user_id !== Auth::id(), 403);
     }
 }
