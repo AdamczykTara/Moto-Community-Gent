@@ -92,3 +92,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
 });
 
+//_______________________________________________________________________________________________________________________
+// Admin
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::resource('users', AdminUserController::class);
+
+        Route::get('contact', [AdminContactController::class, 'index'])
+            ->name('contact.index');
+
+        Route::get('contact/{contactSubmission}', [AdminContactController::class, 'show'])
+            ->name('contact.show');
+    });
+
+//_______________________________________________________________________________________________________________________
+// Home

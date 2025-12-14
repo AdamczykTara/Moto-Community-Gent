@@ -1,14 +1,13 @@
-<h1>{{ $contactSubmission->subject }}</h1>
+<h1>Contactformulier</h1>
 
-<p><strong>Van:</strong> {{ $contactSubmission->name }} ({{ $contactSubmission->email }})</p>
+<p><strong>Naam:</strong> {{ $contactSubmission->name }}</p>
+<p><strong>Email:</strong> {{ $contactSubmission->email }}</p>
+
+@if($contactSubmission->subject)
+    <p><strong>Onderwerp:</strong> {{ $contactSubmission->subject }}</p>
+@endif
+
+<p><strong>Bericht:</strong></p>
 <p>{{ $contactSubmission->message }}</p>
 
-@if (!$contactSubmission->answered_at)
-    <form method="POST" action="{{ route('admin.contact.answer', $contactSubmission) }}">
-        @csrf
-        <textarea name="answer"></textarea>
-        <button type="submit">Beantwoord</button>
-    </form>
-@else
-    <p>Dit bericht is al beantwoord.</p>
-@endif
+<a href="{{ route('admin.contact.index') }}">Terug</a>
