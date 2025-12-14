@@ -11,9 +11,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminContactController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -108,6 +106,3 @@ Route::middleware(['auth', 'admin'])
         Route::get('contact/{contactSubmission}', [AdminContactController::class, 'show'])
             ->name('contact.show');
     });
-
-//_______________________________________________________________________________________________________________________
-// Home
