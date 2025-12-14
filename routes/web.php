@@ -83,3 +83,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/rides/{ride}', [RideController::class, 'destroy'])->name('rides.destroy');
 });
 
+//_______________________________________________________________________________________________________________________
+// Private messages
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/create', [MessageController::class, 'create'])->name('messages.create');
+    Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+});
+
