@@ -1,17 +1,21 @@
-<h1>Nieuw bericht</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('messages.store') }}">
-    @csrf
+@section('content')
+    <h1>Nieuw bericht</h1>
 
-    <label>Ontvanger</label>
-    <select name="receiver_id">
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->username }}</option>
-        @endforeach
-    </select>
+    <form method="POST" action="{{ route('messages.store') }}">
+        @csrf
 
-    <label>Bericht</label>
-    <textarea name="content"></textarea>
+        <label>Ontvanger</label>
+        <select name="receiver_id">
+            @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->username }}</option>
+            @endforeach
+        </select>
 
-    <button type="submit">Verstuur</button>
-</form>
+        <label>Bericht</label>
+        <textarea name="content"></textarea>
+
+        <button type="submit">Verstuur</button>
+    </form>
+@endsection

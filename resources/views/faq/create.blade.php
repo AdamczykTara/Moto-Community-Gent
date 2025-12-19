@@ -1,20 +1,24 @@
-<h1>FAQ toevoegen</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('faq.store') }}">
-    @csrf
+@section('content')
+    <h1>FAQ toevoegen</h1>
 
-    <label>Categorie</label>
-    <select name="faq_category_id">
-        @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
+    <form method="POST" action="{{ route('faq.store') }}">
+        @csrf
 
-    <label>Vraag</label>
-    <input type="text" name="question">
+        <label>Categorie</label>
+        <select name="faq_category_id">
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
 
-    <label>Antwoord</label>
-    <textarea name="answer"></textarea>
+        <label>Vraag</label>
+        <input type="text" name="question">
 
-    <button type="submit">Opslaan</button>
-</form>
+        <label>Antwoord</label>
+        <textarea name="answer"></textarea>
+
+        <button type="submit">Opslaan</button>
+    </form>
+@endsection

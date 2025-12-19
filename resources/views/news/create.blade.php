@@ -1,16 +1,20 @@
-<h1>Nieuws aanmaken</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
-    @csrf
+@section('content')
+    <h1>Nieuws aanmaken</h1>
 
-    <label>Titel</label>
-    <input type="text" name="title" value="{{ old('title') }}">
+    <form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
+        @csrf
 
-    <label>Inhoud</label>
-    <textarea name="content">{{ old('content') }}</textarea>
+        <label>Titel</label>
+        <input type="text" name="title" value="{{ old('title') }}">
 
-    <label>Afbeelding</label>
-    <input type="file" name="image">
+        <label>Inhoud</label>
+        <textarea name="content">{{ old('content') }}</textarea>
 
-    <button type="submit">Aanmaken</button>
-</form>
+        <label>Afbeelding</label>
+        <input type="file" name="image">
+
+        <button type="submit">Aanmaken</button>
+    </form>
+@endsection

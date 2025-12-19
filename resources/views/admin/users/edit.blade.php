@@ -1,17 +1,21 @@
-<h1>Gebruiker bewerken</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('admin.users.update', $user) }}">
-    @csrf
-    @method('PUT')
+@section('content')
+    <h1>Gebruiker bewerken</h1>
 
-    <input name="username" value="{{ $user->username }}">
-    <input name="email" type="email" value="{{ $user->email }}">
+    <form method="POST" action="{{ route('admin.users.update', $user) }}">
+        @csrf
+        @method('PUT')
 
-    <label>
-        <input type="checkbox" name="is_admin" value="1"
-                @checked($user->is_admin)>
-        Admin
-    </label>
+        <input name="username" value="{{ $user->username }}">
+        <input name="email" type="email" value="{{ $user->email }}">
 
-    <button type="submit">Opslaan</button>
-</form>
+        <label>
+            <input type="checkbox" name="is_admin" value="1"
+                    @checked($user->is_admin)>
+            Admin
+        </label>
+
+        <button type="submit">Opslaan</button>
+    </form>
+@endsection

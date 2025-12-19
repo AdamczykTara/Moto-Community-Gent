@@ -1,18 +1,22 @@
-<h1>Nieuwe gebruiker</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('admin.users.store') }}">
-    @csrf
+@section('content')
+    <h1>Nieuwe gebruiker</h1>
 
-    <input name="username" placeholder="Username">
-    <input name="email" type="email" placeholder="Email">
+    <form method="POST" action="{{ route('admin.users.store') }}">
+        @csrf
 
-    <input name="password" type="password" placeholder="Wachtwoord">
-    <input name="password_confirmation" type="password" placeholder="Bevestig">
+        <input name="username" placeholder="Username">
+        <input name="email" type="email" placeholder="Email">
 
-    <label>
-        <input type="checkbox" name="is_admin" value="1">
-        Admin
-    </label>
+        <input name="password" type="password" placeholder="Wachtwoord">
+        <input name="password_confirmation" type="password" placeholder="Bevestig">
 
-    <button type="submit">Opslaan</button>
-</form>
+        <label>
+            <input type="checkbox" name="is_admin" value="1">
+            Admin
+        </label>
+
+        <button type="submit">Opslaan</button>
+    </form>
+@endsection

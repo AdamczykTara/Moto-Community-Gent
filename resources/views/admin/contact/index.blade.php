@@ -1,16 +1,20 @@
-<h1>Contactformulieren</h1>
+@extends('layouts.app')
 
-@foreach ($submissions as $submission)
-    <div>
-        <strong>{{ $submission->name }}</strong>
-        ({{ $submission->email }})
+@section('content')
+    <h1>Contactformulieren</h1>
 
-        @if(!$submission->read_at)
-            <span>[Nieuw]</span>
-        @endif
+    @foreach ($submissions as $submission)
+        <div>
+            <strong>{{ $submission->name }}</strong>
+            ({{ $submission->email }})
 
-        <a href="{{ route('admin.contact.show', $submission) }}">
-            Bekijk
-        </a>
-    </div>
-@endforeach
+            @if(!$submission->read_at)
+                <span>[Nieuw]</span>
+            @endif
+
+            <a href="{{ route('admin.contact.show', $submission) }}">
+                Bekijk
+            </a>
+        </div>
+    @endforeach
+@endsection

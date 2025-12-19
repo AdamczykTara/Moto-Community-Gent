@@ -1,24 +1,28 @@
-<h1>FAQ bewerken</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('faq.update', $faq) }}">
-    @csrf
-    @method('PATCH')
+@section('content')
+    <h1>FAQ bewerken</h1>
 
-    <label>Categorie</label>
-    <select name="faq_category_id">
-        @foreach ($categories as $category)
-            <option value="{{ $category->id }}"
-                    @selected($category->id === $faq->faq_category_id)>
-                {{ $category->name }}
-            </option>
-        @endforeach
-    </select>
+    <form method="POST" action="{{ route('faq.update', $faq) }}">
+        @csrf
+        @method('PATCH')
 
-    <label>Vraag</label>
-    <input type="text" name="question" value="{{ old('question', $faq->question) }}">
+        <label>Categorie</label>
+        <select name="faq_category_id">
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}"
+                        @selected($category->id === $faq->faq_category_id)>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
 
-    <label>Antwoord</label>
-    <textarea name="answer">{{ old('answer', $faq->answer) }}</textarea>
+        <label>Vraag</label>
+        <input type="text" name="question" value="{{ old('question', $faq->question) }}">
 
-    <button type="submit">Opslaan</button>
-</form>
+        <label>Antwoord</label>
+        <textarea name="answer">{{ old('answer', $faq->answer) }}</textarea>
+
+        <button type="submit">Opslaan</button>
+    </form>
+@endsection

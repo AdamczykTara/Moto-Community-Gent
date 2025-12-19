@@ -1,21 +1,25 @@
-<h1>FAQ</h1>
+@extends('layouts.app')
 
-@foreach ($categories as $category)
-    <h2>{{ $category->name }}</h2>
+@section('content')
+    <h1>FAQ</h1>
 
-    @foreach ($category->faqs as $faq)
-        <p><strong>{{ $faq->question }}</strong></p>
-        <p>{{ $faq->answer }}</p>
+    @foreach ($categories as $category)
+        <h2>{{ $category->name }}</h2>
 
-        @auth
-            @if(auth()->user()?->isAdmin())
-                <a href="{{ route('faq.edit', $faq) }}">Bewerken</a>
-                <form method="POST" action="{{ route('faq.destroy', $faq) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Verwijderen</button>
-                </form>
-            @endif
-        @endauth
+        @foreach ($category->faqItems as $faq)
+            <p><strong>{{ $faq->question }}</strong></p>
+            <p>{{ $faq->answer }}</p>
+
+            @auth
+                @if(auth()->user()?->isAdmin())
+                    <a href="{{ route('faq.edit', $faq) }}">Bewerken</a>
+                    <form method="POST" action="{{ route('faq.destroy', $faq) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Verwijderen</button>
+                    </form>
+                @endif
+            @endauth
+        @endforeach
     @endforeach
-@endforeach
+@endsection

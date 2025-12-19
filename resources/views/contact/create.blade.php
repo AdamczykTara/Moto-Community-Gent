@@ -1,16 +1,20 @@
-<h1>Contact</h1>
+@extends('layouts.app')
 
-@if(session('success'))
-    <p>{{ session('success') }}</p>
-@endif
+@section('content')
+    <h1>Contact</h1>
 
-<form method="POST" action="{{ route('contact.store') }}">
-    @csrf
+    @if(session('success'))
+        <p>{{ session('success') }}</p>
+    @endif
 
-    <input type="text" name="name" placeholder="Naam">
-    <input type="email" name="email" placeholder="Email">
-    <input type="text" name="subject" placeholder="Onderwerp">
-    <textarea name="message" placeholder="Bericht"></textarea>
+    <form method="POST" action="{{ route('contact.store') }}">
+        @csrf
 
-    <button type="submit">Verstuur</button>
-</form>
+        <input type="text" name="name" placeholder="Naam">
+        <input type="email" name="email" placeholder="Email">
+        <input type="text" name="subject" placeholder="Onderwerp">
+        <textarea name="message" placeholder="Bericht"></textarea>
+
+        <button type="submit">Verstuur</button>
+    </form>
+@endsection

@@ -1,26 +1,30 @@
-<h1>{{ $news->title }}</h1>
+@extends('layouts.app')
 
-@if ($news->image)
-    <img src="{{ asset('storage/' . $news->image) }}" alt="Afbeelding bij nieuwsitem: {{ $news->title }}">
-@endif
+@section('content')
+    <h1>{{ $news->title }}</h1>
 
-<p>{{ $news->content }}</p>
+    @if ($news->image)
+        <img src="{{ asset('storage/' . $news->image) }}" alt="Afbeelding bij nieuwsitem: {{ $news->title }}">
+    @endif
 
-<hr>
+    <p>{{ $news->content }}</p>
 
-<h3>Reacties</h3>
+    <hr>
 
-@foreach ($news->comments as $comment)
-    <p>
-        <strong>{{ $comment->user->username }}</strong>:
-        {{ $comment->comment_text }}
-    </p>
-@endforeach
+    <h3>Reacties</h3>
 
-@auth
-    <form method="POST" action="{{ route('news.comments.store', $news) }}">
-        @csrf
-        <textarea name="comment_text" required></textarea>
-        <button type="submit">Reageer</button>
-    </form>
-@endauth
+    @foreach ($news->comments as $comment)
+        <p>
+            <strong>{{ $comment->user->username }}</strong>:
+            {{ $comment->comment_text }}
+        </p>
+    @endforeach
+
+    @auth
+        <form method="POST" action="{{ route('news.comments.store', $news) }}">
+            @csrf
+            <textarea name="comment_text" required></textarea>
+            <button type="submit">Reageer</button>
+        </form>
+    @endauth
+@endsection

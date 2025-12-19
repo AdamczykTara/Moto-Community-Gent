@@ -1,20 +1,24 @@
-<h1>Profiel bewerken</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('profiles.update') }}" enctype="multipart/form-data">
-    @csrf
-    @method('PATCH')
+@section('content')
+    <h1>Profiel bewerken</h1>
 
-    <label>Geboortedatum</label>
-    <input type="date" name="birthday" value="{{ old('birthday', $profile->birthday) }}">
+    <form method="POST" action="{{ route('profiles.update') }}" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
 
-    <label>Over mij</label>
-    <textarea name="bio">{{ old('bio', $profile->bio) }}</textarea>
+        <label>Geboortedatum</label>
+        <input type="date" name="birthday" value="{{ old('birthday', $profile->birthday) }}">
 
-    <label>Profielfoto</label>
-    <input type="file" name="profile_picture">
+        <label>Over mij</label>
+        <textarea name="bio">{{ old('bio', $profile->bio) }}</textarea>
 
-    <label>Moto foto</label>
-    <input type="file" name="moto_picture">
+        <label>Profielfoto</label>
+        <input type="file" name="profile_picture">
 
-    <button type="submit">Opslaan</button>
-</form>
+        <label>Moto foto</label>
+        <input type="file" name="moto_picture">
+
+        <button type="submit">Opslaan</button>
+    </form>
+@endsection
