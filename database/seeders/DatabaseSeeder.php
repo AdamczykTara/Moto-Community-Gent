@@ -21,12 +21,22 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $admin = User::factory(5)->admin()->create([
-            'username' => 'admin',
-            'email' => 'admin@ehb.be',
-            'password' => bcrypt('Password!321'),
-        ]);
+        $admin = User::factory()
+            ->admin()
+            ->create([
+                'username' => 'admin',
+                'email' => 'admin@ehb.be',
+                'password' => bcrypt('Password!321'),
+            ]);
         Profile::factory()->for($admin)->create();
+
+        $admins = User::factory(4)
+            ->admin()
+            ->create();
+
+        $admins->each(function ($admin) {
+            Profile::factory()->for($admin)->create();
+        });
 
         $users = User::factory(45)->create();
         foreach ($users as $user) {
@@ -34,28 +44,21 @@ class DatabaseSeeder extends Seeder
         }
 
         News::factory(30)->for($admin)->create()->each(function ($news) use ($users) {
-            Comment::factory(rand(0,10))->for($news)->for($users->random())->create();
+            Comment::factory(rand(0, 10))->for($news)->for($users->random())->create();
         });
 
-        FaqCategory::factory(5)->create()->each(function($cat){
-            FaqItem::factory(rand(3,5))->for($cat)->create();
+        FaqCategory::factory(5)->create()->each(function ($cat) {
+            FaqItem::factory(rand(3, 5))->for($cat)->create();
         });
 
         foreach ($users as $user) {
-            Ride::factory(rand(1,6))->for($user)->create();
+            Ride::factory(rand(1, 6))->for($user)->create();
         }
 
         foreach ($users as $user) {
-            Message::factory(rand(1,10))->for($user, 'sender')->for($users->random(), 'receiver')->create();
+            Message::factory(rand(1, 10))->for($user, 'sender')->for($users->random(), 'receiver')->create();
         }
 
         ContactSubmission::factory(9)->create();
-
-        User::query()->create([
-            'name' => 'admin',
-            'email' => 'admin@ehb.be',
-            'password' => Hash::make('Password!321'),
-            'is_admin' => true,
-        ]);
     }
 }
