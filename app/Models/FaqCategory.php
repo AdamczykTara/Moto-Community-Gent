@@ -20,11 +20,4 @@ class FaqCategory extends Model
     {
         return $this->hasMany(FaqItem::class);
     }
-
-    public function index(): View
-    {
-        $categories = FAQCategory::with('faqs')->get();
-
-        return view('faq.index', compact('categories'));
-    }
 }

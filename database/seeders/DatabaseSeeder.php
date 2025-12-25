@@ -43,17 +43,22 @@ class DatabaseSeeder extends Seeder
             Profile::factory()->for($user)->create();
         }
 
-        News::factory(30)->for($admin)->create()->each(function ($news) use ($users) {
-            Comment::factory(rand(0, 10))->for($news)->for($users->random())->create();
+        $this->call(NewsSeeder::class);
+        News::all()->each(function ($news) {
+            Comment::factory(rand(0, 10))
+                ->for($news)
+                ->create();
         });
 
-        FaqCategory::factory(5)->create()->each(function ($cat) {
-            FaqItem::factory(rand(3, 5))->for($cat)->create();
-        });
+        $this->call([
+            FaqCategorySeeder::class,
+            FaqItemSeeder::class,
+        ]);
 
-        foreach ($users as $user) {
+        $this->call(RideSeeder::class);
+        /*foreach ($users as $user) {
             Ride::factory(rand(1, 6))->for($user)->create();
-        }
+        }*/
 
         foreach ($users as $user) {
             Message::factory(rand(1, 10))->for($user, 'sender')->for($users->random(), 'receiver')->create();
