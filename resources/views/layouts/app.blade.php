@@ -23,6 +23,12 @@
                     @auth
                         <a href="{{ route('profile.edit') }}">Profiel</a>
                         <a href="{{ route('messages.index') }}">Berichten</a>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="ml-4 text-sm text-red-600">
+                                Logout
+                            </button>
+                        </form>
                     @endauth
 
                     @guest
@@ -32,8 +38,10 @@
                 </nav>
             </header>
 
-            <main>
-                @yield('content')
+            <main class="max-w-5xl mx-auto px-6 py-10">
+                <div class="page-content">
+                    @yield('content')
+                </div>
             </main>
 
             <footer>
