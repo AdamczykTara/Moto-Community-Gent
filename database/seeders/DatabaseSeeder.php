@@ -28,20 +28,12 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@ehb.be',
                 'password' => bcrypt('Password!321'),
             ]);
-        Profile::factory()->for($admin)->create();
 
         $admins = User::factory(4)
             ->admin()
             ->create();
 
-        $admins->each(function ($admin) {
-            Profile::factory()->for($admin)->create();
-        });
-
         $users = User::factory(45)->create();
-        foreach ($users as $user) {
-            Profile::factory()->for($user)->create();
-        }
 
         $this->call(NewsSeeder::class);
         News::all()->each(function ($news) {
@@ -56,15 +48,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(RideSeeder::class);
-        /*foreach ($users as $user) {
-            Ride::factory(rand(1, 6))->for($user)->create();
-        }*/
 
         $this->call([MessageSeeder::class]);
-        /*foreach ($users as $user) {
-            Message::factory(rand(1, 10))->for($user, 'sender')->for($users->random(), 'receiver')->create();
-        }*/
 
         ContactSubmission::factory(9)->create();
+
+        $this->call(ProfileSeeder::class);
     }
 }

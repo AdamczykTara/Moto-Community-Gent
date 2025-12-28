@@ -17,7 +17,7 @@
 
     @auth
         @if (auth()->id() === $user->id)
-            <a href="{{ route('profiles.edit') }}">Profiel bewerken</a>
+            <a href="{{ route('profile.edit') }}">Profiel bewerken</a>
         @endif
     @endauth
 

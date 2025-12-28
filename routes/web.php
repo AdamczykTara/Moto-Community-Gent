@@ -71,7 +71,7 @@ Route::get('/profiles/{user}', [ProfileController::class, 'show'])
     ->name('profiles.show');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profiles.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profiles.update');
 
     Route::get('/rides/create', [RideController::class, 'create'])->name('rides.create');
