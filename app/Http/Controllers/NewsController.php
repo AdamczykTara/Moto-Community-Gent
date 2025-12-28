@@ -109,4 +109,15 @@ class NewsController extends Controller
 
         return back();
     }
+
+    public function destroyComment(Comment $comment): RedirectResponse
+    {
+        if (!Auth::user()->isAdmin() && Auth::id() !== $comment->user_id) {
+            abort(403);
+        }
+
+        $comment->delete();
+
+        return back()->with('success', 'Comment verwijderd.');
+    }
 }

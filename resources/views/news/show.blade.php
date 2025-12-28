@@ -11,13 +11,29 @@
 
     <hr>
 
-    <h3>Reacties</h3>
+    <h3>Reacties ({{ $news->comments->count() }})</h3>
 
     @foreach ($news->comments as $comment)
-        <p>
-            <strong>{{ $comment->user->username }}</strong>:
-            {{ $comment->comment_text }}
-        </p>
+        <div class="flex items-start justify-between mb-2">
+            <p>
+                <strong>{{ $comment->user->username }}</strong>:
+                {{ $comment->comment_text }}
+            </p>
+            @auth
+                @if(auth()->user()->isAdmin() || auth()->id() === $comment->user_id)
+                    <form method="POST" action="{{ route('comments.destroyComment', $comment) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button
+                                type="submit"
+                                class="ml-4 px-2 py-1 text-xs border border-red-600 text-red-600 rounded hover:bg-red-50 hover:text-red-700"
+                        >
+                            Verwijder
+                        </button>
+                    </form>
+                @endif
+            @endauth
+        </div>
     @endforeach
 
     @auth

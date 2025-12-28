@@ -42,6 +42,11 @@ Route::middleware('auth')->post(
     [NewsController::class, 'storeComment']
 )->name('news.comments.store');
 
+Route::middleware('auth')->delete(
+    '/comments/{comment}',
+    [NewsController::class, 'destroyComment']
+)->name('comments.destroyComment');
+
 //_______________________________________________________________________________________________________________________
 // Faq
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
