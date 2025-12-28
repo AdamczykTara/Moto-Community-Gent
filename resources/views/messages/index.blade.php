@@ -3,15 +3,25 @@
 @section('content')
     <h1>Inbox</h1>
 
-    @foreach($messages as $message)
-        <p>
-            <a href="{{ route('messages.show', $message) }}">
-                Van: {{ $message->sender->username }} |
-                {{ $message->created_at->format('d/m/Y H:i') }}
-            </a>
-            @if(!$message->read_at)
-                <strong>(Nieuw)</strong>
-            @endif
-        </p>
-    @endforeach
+    @forelse($conversations as $userId => $messages)
+        @php
+            $lastMessage = $messages->first();
+            $otherUser = $lastMessage->sender_id === auth()->id()
+                ? $lastMessage->receiver
+                : $lastMessage->sender;
+        @endphp
+
+        <a href="{{ route('messages.show', $otherUser) }}">
+            <strong>{{ $otherUser->username }}</strong><br>
+            <small>{{ Str::limit($lastMessage->content, 40) }}</small>
+        </a>
+
+        @if($messages->whereNull('read_at')->where('receiver_id', auth()->id())->count())
+            <span>- nieuw</span>
+        @endif
+
+        <hr>
+    @empty
+        <p>Geen berichten</p>
+    @endforelse
 @endsection

@@ -60,9 +60,10 @@ class DatabaseSeeder extends Seeder
             Ride::factory(rand(1, 6))->for($user)->create();
         }*/
 
-        foreach ($users as $user) {
+        $this->call([MessageSeeder::class]);
+        /*foreach ($users as $user) {
             Message::factory(rand(1, 10))->for($user, 'sender')->for($users->random(), 'receiver')->create();
-        }
+        }*/
 
         ContactSubmission::factory(9)->create();
     }

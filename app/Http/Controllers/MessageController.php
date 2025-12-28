@@ -18,29 +18,46 @@ class MessageController extends Controller
 
     public function index(): View
     {
-        $user = Auth::user();
+        $authId = Auth::id();
 
-        $messages = $user->receivedMessages()
-            ->with('sender')
+        $messages = Message::query()
+            ->where('sender_id', $authId)
+            ->orWhere('receiver_id', $authId)
+            ->with(['sender', 'receiver'])
             ->orderByDesc('created_at')
             ->get();
 
-        return view('messages.index', compact('messages'));
+        $conversations = $messages->groupBy(function ($message) use ($authId) {
+            return $message->sender_id === $authId
+                ? $message->receiver_id
+                : $message->sender_id;
+        });
+
+        return view('messages.index', compact('conversations'));
     }
 
-    public function show(Message $message): View
+    public function show(User $user): View
     {
-        $userId = Auth::id();
+        $authId = Auth::id();
 
-        if ($message->receiver_id !== $userId && $message->sender_id !== $userId) {
-            abort(403);
-        }
+        $messages = Message::query()
+            ->where(function ($q) use ($authId, $user) {
+                $q->where('sender_id', $authId)
+                    ->where('receiver_id', $user->id);
+            })
+            ->orWhere(function ($q) use ($authId, $user) {
+                $q->where('sender_id', $user->id)
+                    ->where('receiver_id', $authId);
+            })
+            ->orderBy('created_at')
+            ->get();
 
-        if ($message->receiver_id === $userId && !$message->read_at) {
-            $message->update(['read_at' => now()]);
-        }
+        Message::query()->where('sender_id', $user->id)
+            ->where('receiver_id', $authId)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
 
-        return view('messages.show', compact('message'));
+        return view('messages.show', compact('messages', 'user'));
     }
 
     public function create(): View

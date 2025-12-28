@@ -8,7 +8,10 @@
             Welkom {{ $user->username }}
 
             @if($unreadMessages > 0)
-                — <strong>{{ $unreadMessages }} nieuw bericht</strong>
+                — <strong>
+                    {{ $unreadMessages }}
+                    {{ $unreadMessages === 1 ? 'nieuw bericht' : 'nieuwe berichten' }}
+                </strong>
             @endif
         </p>
     @endif
