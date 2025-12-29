@@ -97,7 +97,6 @@ Route::middleware('auth')->group(function () {
 
 //_______________________________________________________________________________________________________________________
 // Admin
-
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')

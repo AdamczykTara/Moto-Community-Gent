@@ -12,9 +12,11 @@ class NewsSeeder extends Seeder
 {
     public function run(): void
     {
-        $users = User::query()->pluck('id');
+        $admins = User::query()
+            ->where('is_admin', true)
+            ->pluck('id');
 
-        if ($users->isEmpty()) {
+        if ($admins->isEmpty()) {
             return;
         }
 
@@ -123,7 +125,7 @@ class NewsSeeder extends Seeder
 
         foreach ($newsItems as $item) {
             News::query()->create([
-                'user_id' => $users->random(),
+                'user_id' => $admins->random(),
                 'title' => $item['title'],
                 'content' => $item['content'],
                 'image' => $item['image'],
