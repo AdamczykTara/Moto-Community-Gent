@@ -16,4 +16,9 @@ class ContactSubmission extends Model
         'message',
         'answered',
     ];
+
+    public function isAnswered(): bool
+    {
+        return (bool) $this->answered;
+    }
 }

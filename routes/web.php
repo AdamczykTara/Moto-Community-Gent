@@ -65,9 +65,9 @@ Route::get('/contact', [ContactController::class, 'create'])->name('contact.crea
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-    Route::get('/contact/{contactSubmission}', [ContactController::class, 'show'])->name('contact.show');
-    Route::post('/contact/{contactSubmission}/answer', [ContactController::class, 'answer'])->name('contact.answer');
+    Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/{contactSubmission}', [AdminContactController::class, 'show'])->name('contact.show');
+    Route::post('/contact/{contactSubmission}/answer', [AdminContactController::class, 'answer'])->name('contact.answer');
 });
 
 //_______________________________________________________________________________________________________________________

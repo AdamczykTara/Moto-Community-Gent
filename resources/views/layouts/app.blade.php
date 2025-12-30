@@ -21,6 +21,14 @@
                     <a href="{{ route('contact.create') }}">Contact</a>
 
                     @auth
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.contact.index') }}">
+                                Inzendingen
+                            </a>
+                        @endif
+                    @endauth
+
+                    @auth
                         <a href="{{ route('profiles.show', auth()->user()) }}">Profiel</a>
                         <a href="{{ route('messages.index') }}">Berichten</a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">

@@ -51,6 +51,10 @@ class ContactController extends Controller
 
     public function answer(Request $request, ContactSubmission $contactSubmission): RedirectResponse
     {
+        if ($contactSubmission->answered) {
+            return back()->with('error', 'Dit bericht is al beantwoord.');
+        }
+
         $request->validate([
             'answer' => ['required', 'string'],
         ]);
