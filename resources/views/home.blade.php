@@ -23,7 +23,19 @@
         <article>
             <h3>{{ $item->title }}</h3>
             <p>{{ Str::limit($item->content, 150) }}</p>
-            <a href="{{ route('news.show', $item) }}">Lees meer</a>
+            <p>
+                Gepubliceerd op {{ $item->published_at->format('d/m/Y') }}
+                door {{ $item->user->username }}
+            </p>
+            <a
+                    href="{{ route('news.show', $item) }}"
+                    class="inline-block mt-0 mb-5 px-3 py-1 text-sm
+       border border-blue-600 text-blue-600
+       rounded
+       hover:bg-blue-50 hover:text-blue-700"
+            >
+                Lees meer
+            </a>
         </article>
     @endforeach
 

@@ -22,7 +22,7 @@
         </a>
 
         @if($messages->whereNull('read_at')->where('receiver_id', auth()->id())->count())
-            <span>- nieuw</span>
+            <span class="text-red-600">nieuw</span>
         @endif
 
         <hr>

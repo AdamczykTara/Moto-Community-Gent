@@ -7,9 +7,10 @@
         @if(auth()->user()->isAdmin())
             <a
                     href="{{ route('news.create') }}"
-                    class="inline-block mb-4 px-3 py-2
-                       border border-gray-500 rounded
-                       hover:bg-gray-100"
+                    class="inline-block px-3 py-2 text-sm
+                       border border-green-600 text-green-600
+                       rounded
+                       hover:bg-green-50 hover:text-green-700"
             >
                 + Nieuw nieuwsitem
             </a>

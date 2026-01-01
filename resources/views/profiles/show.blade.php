@@ -26,7 +26,29 @@
 
     @auth
         @if (auth()->id() === $user->id)
-            <a href="{{ route('profile.edit') }}">Profiel bewerken</a>
+            <a
+                    href="{{ route('profile.edit') }}"
+                    class="inline-block mt-2 mb-4 px-3 py-1 text-sm
+           border border-gray-400 text-gray-700
+           rounded
+           hover:bg-gray-100"
+            >
+                Profiel bewerken
+            </a>
+        @endif
+    @endauth
+
+    @auth
+        @if(auth()->id() !== $user->id)
+            <a
+                    href="{{ route('messages.create', ['receiver' => $user->id]) }}"
+                    class="inline-block mt-0 mb-5 px-3 py-2 text-sm
+                   border border-blue-600 text-blue-600
+                   rounded
+                   hover:bg-blue-50 hover:text-blue-700"
+            >
+                Bericht sturen
+            </a>
         @endif
     @endauth
 
@@ -36,7 +58,15 @@
 
     @auth
         @if (auth()->id() === $user->id)
-            <a href="{{ route('rides.create') }}">Nieuwe rit</a>
+            <a
+                    href="{{ route('rides.create') }}"
+                    class="inline-block mt-1 mb-4 px-3 py-1 text-sm
+           border border-green-600 text-green-600
+           rounded
+           hover:bg-green-50 hover:text-green-700"
+            >
+                + Nieuwe rit
+            </a>
         @endif
     @endauth
 
@@ -51,12 +81,29 @@
 
             @auth
                 @if (auth()->id() === $ride->user_id)
-                    <a href="{{ route('rides.edit', $ride) }}">Bewerken</a>
+                    <a
+                            href="{{ route('rides.edit', $ride) }}"
+                            class="px-2 py-1 text-xs
+               border border-gray-400 text-gray-700
+               rounded
+               hover:bg-gray-100"
+                    >
+                        Bewerken
+                    </a>
 
                     <form method="POST" action="{{ route('rides.destroy', $ride) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">Verwijderen</button>
+                        <button
+                                type="submit"
+                                onclick="return confirm('Deze rit verwijderen?')"
+                                class="px-2 py-1 text-xs
+                   border border-red-600 text-red-600
+                   rounded
+                   hover:bg-red-50 hover:text-red-700"
+                        >
+                            Verwijderen
+                        </button>
                     </form>
                 @endif
             @endauth

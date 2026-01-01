@@ -60,10 +60,13 @@ class MessageController extends Controller
         return view('messages.show', compact('messages', 'user'));
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         $users = User::query()->where('id', '<>', Auth::id())->get();
-        return view('messages.create', compact('users'));
+
+        $receiverId = $request->query('receiver');
+
+        return view('messages.create', compact('users', 'receiverId'));
     }
 
     public function store(Request $request): RedirectResponse
