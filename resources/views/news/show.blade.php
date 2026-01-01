@@ -45,7 +45,9 @@
     @foreach ($news->comments as $comment)
         <div class="flex items-start justify-between mb-2">
             <p>
-                <strong>{{ $comment->user->username }}</strong>:
+                <a href="{{ route('profiles.show', $comment->user) }}">
+                    <strong>{{ $comment->user->username }}</strong>
+                </a>
                 {{ $comment->comment_text }}
             </p>
             @auth

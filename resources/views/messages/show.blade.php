@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Chat met {{ $user->username }}</h1>
+    <h1>
+        Chat met <a href="{{ route('profiles.show', $user) }}">
+            {{ $user->username }}
+        </a>
+    </h1>
 
     <div class="space-y-2">
         @foreach($messages as $message)

@@ -52,7 +52,9 @@
     <div>
         @foreach($members as $member)
             <div>
-                <strong>{{ $member->username }}</strong>
+                <a href="{{ route('profiles.show', $member) }}">
+                    {{ $member->username }}
+                </a>
 
                 @if($member->profile?->profile_picture)
                     <img src="{{ asset('storage/' . $member->profile->profile_picture) }}"

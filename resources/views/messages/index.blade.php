@@ -11,8 +11,13 @@
                 : $lastMessage->sender;
         @endphp
 
+        <strong>
+            <a href="{{ route('profiles.show', $otherUser) }}">
+                {{ $otherUser->username }}
+            </a>
+        </strong><br>
+
         <a href="{{ route('messages.show', $otherUser) }}">
-            <strong>{{ $otherUser->username }}</strong><br>
             <small>{{ Str::limit($lastMessage->content, 40) }}</small>
         </a>
 

@@ -15,6 +15,15 @@
 
     <p>{{ $user->profile?->bio }}</p>
 
+    @if ($user->profile?->birthday)
+        <p>
+            <strong>Verjaardag:</strong>
+            {{ \Carbon\Carbon::parse($user->profile->birthday)
+            ->locale('nl')
+            ->translatedFormat('j F') }}
+        </p>
+    @endif
+
     @auth
         @if (auth()->id() === $user->id)
             <a href="{{ route('profile.edit') }}">Profiel bewerken</a>
