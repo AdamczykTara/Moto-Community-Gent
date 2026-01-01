@@ -29,12 +29,12 @@ class ContactController extends Controller
         Mail::raw(
             "Naam: $submission->name\nEmail: $submission->email\n\n$submission->message",
             function ($mail) use ($submission) {
-                $mail->to(config('mail.from.address'))
+                $mail->to(config('mail.admin.address'))
                     ->subject($submission->subject ?? 'Nieuw contactbericht');
             }
         );
 
-        return redirect()->back()->with('success', 'Bericht verzonden.');
+        return redirect()->back()->with('success', 'Je bericht werd verzonden. De admin heeft een e-mail ontvangen.');
     }
 
     public function index(): View
