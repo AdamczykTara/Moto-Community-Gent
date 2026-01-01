@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FaqCategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RideController;
 use App\Http\Controllers\MessageController;
@@ -57,6 +58,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/faq/{faq}/edit', [FaqController::class, 'edit'])->name('faq.edit');
     Route::patch('/admin/faq/{faq}', [FaqController::class, 'update'])->name('faq.update');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/faq/categories/create', [FaqCategoryController::class, 'create'])->name('faq.categories.create');
+    Route::post('/admin/faq/categories', [FaqCategoryController::class, 'store'])->name('faq.categories.store');
+    Route::get('/admin/faq/categories/{category}/edit', [FaqCategoryController::class, 'edit'])->name('faq.categories.edit');
+    Route::patch('/admin/faq/categories/{category}', [FaqCategoryController::class, 'update'])->name('faq.categories.update');
+    Route::delete('/admin/faq/categories/{category}', [FaqCategoryController::class, 'destroy'])->name('faq.categories.destroy');
 });
 
 //_______________________________________________________________________________________________________________________
