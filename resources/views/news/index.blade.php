@@ -23,7 +23,10 @@
                     {{ $item->title }}
                 </a>
             </h2>
-            <p>Door {{ $item->user->username }}</p>
+            <p>
+                Gepubliceerd op {{ $item->published_at->format('d/m/Y') }}
+                door {{ $item->user->username }}
+            </p>
 
             @auth
                 @if(auth()->user()->isAdmin())

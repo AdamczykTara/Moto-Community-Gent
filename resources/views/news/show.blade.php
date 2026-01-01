@@ -3,6 +3,11 @@
 @section('content')
     <h1>{{ $news->title }}</h1>
 
+    <p>
+        Gepubliceerd op {{ $news->published_at->format('d/m/Y') }}
+        door {{ $news->user->username }}
+    </p>
+
     @auth
         @if(auth()->user()->isAdmin())
             <div class="flex gap-2 mb-4">
