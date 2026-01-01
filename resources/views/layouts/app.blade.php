@@ -22,9 +22,8 @@
 
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.contact.index') }}">
-                                Inzendingen
-                            </a>
+                            <a href="{{ route('admin.contact.index') }}">Inzendingen</a>
+                            <a href="{{ route('admin.users.index') }}">Gebruikersbeheer</a>
                         @endif
                     @endauth
 

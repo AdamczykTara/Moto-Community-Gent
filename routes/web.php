@@ -109,4 +109,9 @@ Route::middleware(['auth', 'admin'])
 
         Route::get('contact/{contactSubmission}', [AdminContactController::class, 'show'])
             ->name('contact.show');
+
+        Route::patch(
+            'users/{user}/toggle-admin',
+            [AdminUserController::class, 'toggleAdmin']
+        )->name('users.toggleAdmin');
     });

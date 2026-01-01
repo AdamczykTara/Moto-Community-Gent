@@ -17,9 +17,24 @@ class AdminUserController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::with('profile')->get();
+        $query = User::with('profile');
+
+        if ($request->filled('search')) {
+            $query->where('username', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('role')) {
+            if ($request->role === 'admin') {
+                $query->where('is_admin', true);
+            } elseif ($request->role === 'user') {
+                $query->where('is_admin', false);
+            }
+        }
+
+        $users = $query->orderBy('username')->get();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -32,7 +47,7 @@ class AdminUserController extends Controller
     {
         $validated = $request->validate([
             'username' => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'is_admin' => ['sometimes', 'boolean'],
         ]);
@@ -55,7 +70,7 @@ class AdminUserController extends Controller
     {
         $validated = $request->validate([
             'username' => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users,email,' . $user->id],
+            'email' => ['required', 'email', 'unique:users,email,' . $user->id],
             'is_admin' => ['sometimes', 'boolean'],
         ]);
 
@@ -68,5 +83,18 @@ class AdminUserController extends Controller
     {
         $user->delete();
         return back()->with('success', 'Gebruiker verwijderd');
+    }
+
+    public function toggleAdmin(User $user): RedirectResponse
+    {
+        if (auth()->id() === $user->id) {
+            return back()->with('error', 'Je kan je eigen adminrechten niet aanpassen.');
+        }
+
+        $user->update([
+            'is_admin' => !$user->is_admin,
+        ]);
+
+        return back()->with('success', 'Adminrechten aangepast.');
     }
 }
