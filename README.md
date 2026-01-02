@@ -51,6 +51,12 @@ php artisan key:generate<br/>
 #### .env:
 Pas .env aan met je eigen databasegegevens.<br/>
 
+#### XAMPP
+In de httpd.config van de apache server moet het volgende staan:
+- DocumentRoot "root\naar\Moto-Community-Gent"
+- <Directory "route\naar\Moto-Community-Gent">
+Zorg ervoor dat de database en apache server runnen.
+
 #### CLI:
 php artisan migrate:fresh --seed<br/>
 php artisan storage:link<br/>
