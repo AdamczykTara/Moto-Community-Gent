@@ -52,22 +52,19 @@ php artisan key:generate<br/>
 Pas .env aan met je eigen databasegegevens.<br/>
 
 #### XAMPP
-In de httpd.config van de apache server moet het volgende staan:
-- DocumentRoot "root\naar\Moto-Community-Gent"
-- <Directory "route\naar\Moto-Community-Gent">
-Zorg ervoor dat de database en apache server runnen.
+Start Apache<br/>
+Start MySQL<br/>
 
 #### CLI:
 php artisan migrate:fresh --seed<br/>
 php artisan storage:link<br/>
-php artisan serve<br/>
 
 ## Gebruik
 Voor gebruik moet je volgende zaken doen:
 - CLI (tabblad 1): npm run dev
 - CLI (tabblad 2): php artisan serve
-- MySQL database moet runnen (ik gebruik XAMPP)
-- Apache server moet runnen (ik gebruik XAMPP)
+- MySQL database moet runnen (XAMPP)
+- Apache server moet runnen (XAMPP)
 
 Bezoek de website op http://127.0.0.1:8000<br/>
 
@@ -139,6 +136,3 @@ Bij de ontwikkeling van dit project werden de volgende bronnen geraadpleegd.<br/
 - README
   - https://www.makeareadme.com/
   - (Opstelling van de README)
-
-### Afbeeldingen
-- De gebruikte afbeeldingen dienen uitsluitend als voorbeeldmateriaal binnen een educatieve context.
