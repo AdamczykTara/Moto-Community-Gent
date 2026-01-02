@@ -127,6 +127,7 @@ Bij de ontwikkeling van dit project werden de volgende bronnen geraadpleegd.<br/
   - https://openai.com
   - (Ondersteuning bij architectuur, debugging, seeding, Laravel best practices)
   - (Opstellen van de teksten gebruikt doorheen de website)
+    - https://chatgpt.com/share/69569ed6-edec-8011-8536-647198f99cbc
   - Alle gegenereerde code werd nagelezen, begrepen en aangepast door de auteur.
   - 
 - README
