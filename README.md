@@ -104,22 +104,22 @@ Bij de ontwikkeling van dit project werden de volgende bronnen geraadpleegd.<br/
   - https://laravel.com/docs/starter-kits#laravel-breeze
   - (Authenticatie, basis layouts, login/registratie)
 
-## Front-end
+### Front-end
 - Tailwind CSS documentatie
   - https://tailwindcss.com/docs
   - (Utility classes, layout, spacing, buttons, hover states)
 
-## Database en Eloquent
+### Database en Eloquent
 - Laravel Eloquent ORM
   - https://laravel.com/docs/eloquent
   - (HasMany, BelongsTo, seeding, factories)
 
-## Mails en formulieren
+### Mails en formulieren
 - Laravel Mail
   - https://laravel.com/docs/mail
   - (Versturen van e-mails bij contactformulier en admin-antwoorden)
 
-## Algemene ondersteuning
+### Algemene ondersteuning
 - Stack Overflow
   - https://stackoverflow.com
   - (Specifieke foutmeldingen en edge cases)
@@ -133,5 +133,5 @@ Bij de ontwikkeling van dit project werden de volgende bronnen geraadpleegd.<br/
   - https://www.makeareadme.com/
   - (Opstelling van de README)
 
-## Afbeeldingen
+### Afbeeldingen
 - De gebruikte afbeeldingen dienen uitsluitend als voorbeeldmateriaal binnen een educatieve context.
