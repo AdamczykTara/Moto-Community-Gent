@@ -41,7 +41,7 @@ De website brengt motorrijders samen via nieuws, ritten, profielen, privéberich
 ### Installatiestappen:
 #### CLI:
 git clone https://github.com/AdamczykTara/Moto-Community-Gent<br/>
-cd /Moto-Community-Gent<br/>
+cd Moto-Community-Gent<br/>
 composer install<br/>
 npm install<br/>
 npm run build<br/>
