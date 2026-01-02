@@ -1,59 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Motor Community Gent
+Dit project is een website, gemaakt met PHP en Laravel 12, voor de lokale motor community in Gent.<br/>
+De website brengt motorrijders samen via nieuws, ritten, profielen, privéberichten en een actieve community, met administratief beheer voor moderators.<br/>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Features
+### Gebruikers
+- Registreren en inloggen
+- Publiek profiel instellen
+- Privéberichten sturen naar andere gebruikers
+- Eigen ritten toevoegen
+- Reageren op nieuwsberichten
+- Admins kunnen gebruikers beheren
 
-## About Laravel
+### Nieuws
+- Publieke nieuwsartikels
+- Gebruikers kunnen reacties toevoegen
+- Admins kunnen:
+  - Nieuwsitems aanmaken, bewerken en verwijderen
+  - Reacties verwijderen
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### FAQ
+- Gecategoriseerde FAQ pagina
+- Admins kunnen:
+  - categorieën beheren
+  - Vragen en antwoorden beheren
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Contactformulier
+- Publiek contactformulier voor bezoekers en gebruikers
+- Admins kunnen:
+  - Inzendingen bekijken
+  - Antwoorden op inzendingen
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installatie
+### Vereisten:
+- PHP 8.2+
+- Composer
+- Node.js en NPM
+- MySQL
+- Laravel 12
 
-## Learning Laravel
+### Installatiestappen:
+#### CLI:
+git clone https://github.com/AdamczykTara/Moto-Community-Gent<br/>
+cd /Moto-Community-Gent<br/>
+composer install<br/>
+npm install<br/>
+npm run build<br/>
+cp .env.example .env<br/>
+php artisan key:generate<br/>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+#### .env:
+Pas .env aan met je eigen databasegegevens.<br/>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### CLI:
+php artisan migrate:fresh --seed<br/>
+php artisan storage:link<br/>
+php artisan serve<br/>
 
-## Laravel Sponsors
+## Gebruik
+Voor gebruik moet je volgende zaken doen:
+- CLI (tabblad 1): npm run dev
+- CLI (tabblad 2): php artisan serve
+- MySQL database moet runnen (ik gebruik XAMPP)
+- Apache server moet runnen (ik gebruik XAMPP)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Bezoek de website op http://127.0.0.1:8000<br/>
 
-### Premium Partners
+### Admin gegevens:
+- Username: admin
+- Email: admin@ehb.be
+- Password: Password!321
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Voorbeeldgebruik:
+- Bezoek een profiel en stuur deze een bericht.
+- Lees een nieuwsartikel en voeg een reactie toe.
+- Dien een contactformulier in.
+
+## Support
+Voor vragen of problemen: tara.adamczyk@student.ehb.be
 
 ## Contributing
+Dit project is een examenopdracht voor de opleiding Toegepaste Informatica.<br/>
+Suggesties en verbeteringen zijn welkom.<br/>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Auteur
+Tara Adamczyk<br/>
+Student Toegepaste Informatica<br/>
+Erasmushogeschool Brussel
 
-## Code of Conduct
+## Licentie
+Geen commerciële licentie inbegrepen.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Project status
+Afgewerkt
 
-## Security Vulnerabilities
+## Bronvermelding
+Bij de ontwikkeling van dit project werden de volgende bronnen geraadpleegd.<br/>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Framework en documentatie
+- Laravel officiële documentatie
+  - https://laravel.com/docs
+  - (Routing, controllers, middleware, Eloquent relationships, authentication, validation, mail)
+- Laravel Breeze
+  - https://laravel.com/docs/starter-kits#laravel-breeze
+  - (Authenticatie, basis layouts, login/registratie)
 
-## License
+## Front-end
+- Tailwind CSS documentatie
+  - https://tailwindcss.com/docs
+  - (Utility classes, layout, spacing, buttons, hover states)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Database en Eloquent
+- Laravel Eloquent ORM
+  - https://laravel.com/docs/eloquent
+  - (HasMany, BelongsTo, seeding, factories)
+
+## Mails en formulieren
+- Laravel Mail
+  - https://laravel.com/docs/mail
+  - (Versturen van e-mails bij contactformulier en admin-antwoorden)
+
+## Algemene ondersteuning
+- Stack Overflow
+  - https://stackoverflow.com
+  - (Specifieke foutmeldingen en edge cases)
+- ChatGPT
+  - https://openai.com
+  - (Ondersteuning bij architectuur, debugging, seeding, Laravel best practices)
+  - (Opstellen van de teksten gebruikt doorheen de website)
+  - Alle gegenereerde code werd nagelezen, begrepen en aangepast door de auteur.
+  - 
+- README
+  - https://www.makeareadme.com/
+  - (Opstelling van de README)
+
+## Afbeeldingen
+- De gebruikte afbeeldingen dienen uitsluitend als voorbeeldmateriaal binnen een educatieve context.
